@@ -23,9 +23,9 @@ class Main(MDApp):
             text="kde rice, hold everything except the theme",
             pos_hint={"x": 0.6, "y": 0.6},
         )
-        theme_btn.bind(on_press=partial(kde_theme, os.getcwd))
-        wallpaper_btn.bind(on_press=wallpaper)
-        dot_files_btn.bind(on_press=dot_files)
+        theme_btn.bind(on_press=partial(self.themer, os.getcwd()))
+        wallpaper_btn.bind(on_press=self.set_wallpaper)
+        dot_files_btn.bind(on_press=self.dotter_files)
         auto_btn.bind(on_press=self.auto_init)
         screen.add_widget(theme_btn)
         screen.add_widget(wallpaper_btn)
@@ -33,11 +33,20 @@ class Main(MDApp):
         screen.add_widget(auto_btn)
         return screen
 
-    def auto_init():
+    def auto_init(self, y):
         staging_dir = os.getcwd()
         dot_files()
         kde_theme(staging_dir)
         wallpaper()
+
+    def themer(self, path, y):
+        kde_theme(path)
+
+    def set_wallpaper(self, y):
+        wallpaper()
+
+    def dotter_files(self, y):
+        dot_files()
 
 
 Main().run()
