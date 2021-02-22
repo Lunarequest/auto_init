@@ -21,17 +21,22 @@ def replcaer(path, user):
 
 
 def dot_files():
-    user = getpass.getuser()
     path = os.path.expanduser("~/.dotfiles")
     git.Git(path).clone("git@github.com:advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir("~/.dotfiles")
+    os.system(
+        "git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager"
+    )
+    os.system(
+        "git clone https://github.com/kristijanhusak/vim-packager ~/.config/nvim/pack/packager/opt/vim-packager"
+    )
     dirs = os.listdir()
     stow_command = "stow "
     for files in dirs:
         if os.path.isdir(f"~/.dotfiles/{files}"):
-            stow_command = stow_command + files + " "
-    if user != "nullrequest":
+            stow_command = stow_command + " " + files
+    if getpass.getuser() != "nullrequest":
         replcaer(path, user)
     subprocess.Popen(stow_command)
     print("finished stow")
@@ -59,12 +64,13 @@ def wallpaper():
         dbus_interface="org.kde.PlasmaShell",
     )
     plasma.evaluateScript(jscript % (plugin, plugin, path))
+    print("wallpaper set")
 
 
 def kde_theme(staging_dir):
     os.chdir(staging_dir)
-    url = "https://dllb2.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2MTMxMjM1NjIiLCJ1IjpudWxsLCJsdCI6ImRvd25sb2FkIiwicyI6IjdiMDBlMDBkOThlOGVmNjhjZjcwMmEzNmQxYTQ5YjE4YjVmZTMxOGY3ODg2MGFlYmM0Y2NhMjVjYWQwNTZjNmU4ZjJiNDA1YjUyN2VlZmZkOGM1MDlkMDE1MmRmODUyY2E4YmJhNjMwMDdjMzVhMTk5MTg3ZmFmNTI0NjAyMmYwIiwidCI6MTYxMzQ0ODA0NSwic3RmcCI6IjJmYTY5NjlmYmMzNWRjYjRhNGVhNmFjN2E3YmJkMGYyIiwic3RpcCI6IjEyMi4xNjcuMTAwLjE1NSJ9.d0-ot0ssV7Nzy_vyJ47G42w_XvX1yTPKiXw3xuTIP2E/Neonyt-Global.zip"
-    Download(url).download()
+    # url = "" need to make a new url too often stickig to keeping a copy in the repo
+    # Download(url).download()
     subprocess.check_call(["sudo", "plasmapkg2", "-gi", "Neonyt-Global.zip"])
     subprocess.check_call(["lookandfeeltool", "-a", "Neonyt-Global"])
 
