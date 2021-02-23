@@ -8,4 +8,4 @@ after you run this plasma should look a bit like this(latte dock and plasma 5.21
 
 ## future plans
 
-In the future I plan to add a section to set the icons once I find a icon theme.
+In the future I plan to add a section to set the icons once I find a icon theme I like.
