@@ -37,7 +37,7 @@ def dot_files():
         if os.path.isdir(f"~/.dotfiles/{files}"):
             stow_command = stow_command + " " + files
     if getpass.getuser() != "nullrequest":
-        replcaer(path, user)
+        replcaer(path, getpass.getuser())
     subprocess.Popen(stow_command)
     print("finished stow")
     print("installing p10k")
