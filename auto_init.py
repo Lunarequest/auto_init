@@ -2,8 +2,11 @@ import os
 import subprocess
 import git
 import dbus
-from downloader_cli.download import Download
 import getpass
+import tarfile
+
+# from downloader_cli.download import Download
+# add this downloader-cli = "*" to pip file if you want to renable above^
 
 
 def replcaer(path, user):
@@ -73,6 +76,19 @@ def kde_theme(staging_dir):
     # Download(url).download()
     subprocess.check_call(["sudo", "plasmapkg2", "-gi", "Neonyt-Global.zip"])
     subprocess.check_call(["lookandfeeltool", "-a", "Neonyt-Global"])
+    icons_nya(staging_dir)
+
+
+def icons_nya(staging_dir):
+    if (
+        os.path.exists(
+            f"/home/{getpass.getuser()}/.local/share/icons/Mojave-CT-Night-Mode"
+        )
+        != True
+    ):
+        os.chdir(staging_dir)
+        icon_set = tarfile.open("Mojave-CT-Night-Mode.tar.xz")
+        icon_set.extractall(f"/home/{getpass.getuser()}/.local/share/icons")
 
 
 if __name__ == "__main__":
