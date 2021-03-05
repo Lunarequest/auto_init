@@ -28,19 +28,19 @@ def dot_files():
     git.Git(path).clone("git@github.com:advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir("~/.dotfiles")
-    os.system(
-        "git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager"
+    git.git("~/.vim/pack/packager/opt/vim-packager").clone(
+        "https://github.com/kristijanhusak/vim-packager"
     )
-    os.system(
-        "git clone https://github.com/kristijanhusak/vim-packager ~/.config/nvim/pack/packager/opt/vim-packager"
+    git.git("~/.config/nvim/pack/packager/opt/vim-packager").clone(
+        "https://github.com/kristijanhusak/vim-packager"
     )
     dirs = os.listdir()
     stow_command = "stow "
     for files in dirs:
         if os.path.isdir(f"~/.dotfiles/{files}"):
             stow_command = stow_command + " " + files
-    if getpass.getuser() != "nullrequest":
-        replcaer(path, getpass.getuser())
+        if getpass.getuser() != "nullrequest":
+            replcaer(path, getpass.getuser())
     subprocess.Popen(stow_command)
     print("finished stow")
     print("installing p10k")
@@ -72,11 +72,12 @@ def wallpaper():
 
 def kde_theme(staging_dir):
     os.chdir(staging_dir)
-    # url = "" need to make a new url too often stickig to keeping a copy in the repo
+    # url = "" need to make a new url too often sticking to keeping a copy in the repo
     # Download(url).download()
     subprocess.check_call(["sudo", "plasmapkg2", "-gi", "Neonyt-Global.zip"])
     subprocess.check_call(["lookandfeeltool", "-a", "Neonyt-Global"])
     icons_nya(staging_dir)
+    sddm_theme(staging_dir)
 
 
 def icons_nya(staging_dir):
@@ -89,6 +90,11 @@ def icons_nya(staging_dir):
         os.chdir(staging_dir)
         icon_set = tarfile.open("Mojave-CT-Night-Mode.tar.xz")
         icon_set.extractall(f"/home/{getpass.getuser()}/.local/share/icons")
+
+
+def sddm_theme(staging_dir):
+    os.system("sudo tar -xvf -C /usr/share/sddm/themes/")
+    os.system("sudo mv kde_settings.conf /etc/sddm.conf.d/kde_settings.conf")
 
 
 if __name__ == "__main__":
