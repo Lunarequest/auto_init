@@ -5,3 +5,7 @@ auto init is a python script that sets up plasma the way I like it, It also inst
 after you run this plasma should look a bit like this(latte dock and plasma 5.21 not included)
 
 ![plasma](.github/desktop.png)
+## Future plans
+I plan to reduce my usage of vscode(and any derivites) as much as possible due to personal reasons. This can be seen with the heavy work put into my on the vim and neovim configs on my dotfiles repo. I also am looking forward to plasma 5.22 as it adds many userspace utilites which should reduce the amount of weird js and things I am running.
+
+I also plan to work on making as much of this code mypy complaint.

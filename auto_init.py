@@ -1,7 +1,7 @@
 import os
 import subprocess
-import git
-import dbus
+import git# type: ignore
+import dbus# type: ignore
 import getpass
 import tarfile
 
@@ -9,7 +9,7 @@ import tarfile
 # add this downloader-cli = "*" to pip file if you want to renable above^
 
 
-def replcaer(path, user):
+def replcaer(path: str, user: str):
     for file in os.listdir(path):
         if os.path.isdir(f"{path}{file}"):
             replcaer(f"{path}{file}/", user)
@@ -70,7 +70,7 @@ def wallpaper():
     print("wallpaper set")
 
 
-def kde_theme(staging_dir):
+def kde_theme(staging_dir:str):
     os.chdir(staging_dir)
     # url = "" need to make a new url too often sticking to keeping a copy in the repo
     # Download(url).download()
@@ -80,7 +80,7 @@ def kde_theme(staging_dir):
     sddm_theme(staging_dir)
 
 
-def icons_nya(staging_dir):
+def icons_nya(staging_dir:str):
     if (
         os.path.exists(
             f"/home/{getpass.getuser()}/.local/share/icons/Mojave-CT-Night-Mode"
@@ -92,7 +92,7 @@ def icons_nya(staging_dir):
         icon_set.extractall(f"/home/{getpass.getuser()}/.local/share/icons")
 
 
-def sddm_theme(staging_dir):
+def sddm_theme(staging_dir:str):
     os.system("sudo tar -xvf -C /usr/share/sddm/themes/")
     os.system("sudo mv kde_settings.conf /etc/sddm.conf.d/kde_settings.conf")
 

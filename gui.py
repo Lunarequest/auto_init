@@ -1,8 +1,8 @@
 from auto_init import wallpaper, kde_theme, dot_files
-from kivymd.app import MDApp
-from kivymd.uix.button import MDRaisedButton as MDRectangleFlatButton
-from kivymd.uix.screen import MDScreen
-from kivymd.uix.floatlayout import MDFloatLayout
+from kivymd.app import MDApp # type: ignore
+from kivymd.uix.button import MDRaisedButton as MDRectangleFlatButton # type: ignore
+from kivymd.uix.screen import MDScreen# type: ignore
+from kivymd.uix.floatlayout import MDFloatLayout# type: ignore
 import os
 from functools import partial
 
@@ -33,19 +33,19 @@ class Main(MDApp):
         screen.add_widget(auto_btn)
         return screen
 
-    def auto_init(self, y):
+    def auto_init(self, y:any):
         staging_dir = os.getcwd()
         dot_files()
         kde_theme(staging_dir)
         wallpaper()
 
-    def themer(self, path, y):
+    def themer(self, path:str, y:any):
         kde_theme(path)
 
-    def set_wallpaper(self, y):
+    def set_wallpaper(self, y:any):
         wallpaper()
 
-    def dotter_files(self, y):
+    def dotter_files(self, y:any):
         dot_files()
 
 
