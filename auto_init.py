@@ -34,7 +34,7 @@ def dot_files():
     dirs = os.listdir()
     stow_command = "stow "
     for files in dirs:
-        if os.path.isdir(f"~/.dotfiles/{files}"):
+        if os.path.isdir(files) and files.startswith(".")==False:
             stow_command = stow_command + " " + files
         if getpass.getuser() != "nullrequest":
             replcaer(path, getpass.getuser())
