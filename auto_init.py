@@ -33,12 +33,23 @@ def dot_files():
     git.Git(path).clone("https://github.com/advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir(path)
-    os.mkdir("~/.vim/pack/packager/opt/vim-packager")
-    git.Git("~/.vim/pack/packager/opt/vim-packager").clone(
+    vim_pack_dirs ="~/.vim/pack/packager/opt/vim-packager"
+    neovim_pack_dirs ="~/.vim/pack/packager/opt/vim-packager"
+    fullpath =""
+    for path in vim_pack_dirs.split("/"):
+        provpath = os.path.expanduser(path)
+        if not os.path.exists(provpath):
+            os.mkdir(provpath)
+        fullpath = provpath
+    git.Git(fullpath).clone(
         "https://github.com/kristijanhusak/vim-packager"
     )
-    os.mkdir("~/.config/nvim/pack/packager/opt/vim-packager")
-    git.Git("~/.config/nvim/pack/packager/opt/vim-packager").clone(
+    for path in neovim_pack_dirs.split("/"):
+        provpath = os.path.expanduser(path)
+        if not os.path.exists(provpath):
+            os.mkdir(provpath)
+        fullpath = provpath
+    git.Git(fullpath).clone(
         "https://github.com/kristijanhusak/vim-packager"
     )
     dirs = os.listdir()
