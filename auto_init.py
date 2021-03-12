@@ -26,7 +26,7 @@ def replcaer(path: str, user: str):
 def dot_files():
     path = os.path.expanduser("~/.dotfiles")
     print("cloning dotfiles")
-    os.system("https://github.com/advaithm/Dotfiles.git ~/.dotfiles")
+    os.system("git clone https://github.com/advaithm/Dotfiles.git ~/.dotfiles")
     print("stowing files")
     os.chdir(path)
     os.system("git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager")
@@ -38,7 +38,7 @@ def dot_files():
             stow_command = stow_command + " " + files
         if getpass.getuser() != "nullrequest":
             replcaer(path, getpass.getuser())
-    subprocess.Popen(stow_command)
+    subprocess.Popen(stow_command.split())
     print("finished stow")
     print("installing p10k")
     if os.path.exists("/usr/bin/yay") == False:
