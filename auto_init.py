@@ -41,9 +41,9 @@ def dot_files():
         provpath = os.path.expanduser(path)
         if not os.path.exists(provpath):
             os.mkdir(provpath)
-        elif os.listdir(path):
-            shutil.rmtree(path)
-        fullpath = provpath
+        elif os.listdir(provpath):
+            shutil.rmtree(provpath)
+        fullpath = fullpath +"/" + provpath
     print("installing vim-packager")
     git.Git(fullpath).clone(
         "https://github.com/kristijanhusak/vim-packager.git"
