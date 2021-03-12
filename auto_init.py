@@ -30,6 +30,7 @@ def dot_files():
     elif os.listdir(path):
         shutil.rmtree(path)
         os.mkdir(path)
+    print("cloning dotfiles")
     git.Git(path).clone("https://github.com/advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir(path)
@@ -41,8 +42,9 @@ def dot_files():
         if not os.path.exists(provpath):
             os.mkdir(provpath)
         fullpath = provpath
+    print("installing vim-packager")
     git.Git(fullpath).clone(
-        "https://github.com/kristijanhusak/vim-packager"
+        "https://github.com/kristijanhusak/vim-packager.git"
     )
     for path in neovim_pack_dirs.split("/"):
         provpath = os.path.expanduser(path)
@@ -50,7 +52,7 @@ def dot_files():
             os.mkdir(provpath)
         fullpath = provpath
     git.Git(fullpath).clone(
-        "https://github.com/kristijanhusak/vim-packager"
+        "https://github.com/kristijanhusak/vim-packager.git"
     )
     dirs = os.listdir()
     stow_command = "stow "
