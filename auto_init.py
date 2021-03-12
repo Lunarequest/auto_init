@@ -40,13 +40,19 @@ def dot_files():
             replcaer(path, getpass.getuser())
     subprocess.Popen(stow_command.split())
     print("finished stow")
-    print("installing p10k")
+    print("installing zshrc deps")
+    subprocess.check_call(["pacman","-S", "--noconfirm","zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting"])
     if os.path.exists("/usr/bin/yay") == False:
         os.chdir(f"/home/{getpass.getuser()}")
         git.Git().clone("https://aur.archlinux.org/yay.git")
         os.chdir("yay")
         os.system("makepkg -si")
+    os.system("""sh -c '$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'""")
     subprocess.check_call(["yay", "-S", "--noconfirm", "zsh-theme-powerlevel10k-git"])
+    print("done installing deps. please configure powerlevel 10k")
+    subprocess.check_call(["p10k", "configure"])
+    shutil.rmtree(f"/home/{getpass.getuser()}/.zshrc")
+    subprocess.Popen(["stow","zsh"])
 
 
 def wallpaper():
