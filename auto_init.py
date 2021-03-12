@@ -25,13 +25,8 @@ def replcaer(path: str, user: str):
 
 def dot_files():
     path = os.path.expanduser("~/.dotfiles")
-    if not os.path.exists(path):
-        os.mkdir(path)
-    elif os.listdir(path):
-        shutil.rmtree(path)
-        os.mkdir(path)
     print("cloning dotfiles")
-    git.Git(path).clone("https://github.com/advaithm/Dotfiles.git")
+    os.system("https://github.com/advaithm/Dotfiles.git ~/.dotfiles")
     print("stowing files")
     os.chdir(path)
     os.system("git clone https://github.com/kristijanhusak/vim-packager ~/.vim/pack/packager/opt/vim-packager")
