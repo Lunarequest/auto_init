@@ -41,9 +41,11 @@ def dot_files():
     subprocess.Popen(stow_command)
     print("finished stow")
     print("installing p10k")
-    if not os.path.exists("/usr/bin/yay"):
-        os.mkdir("yay")
-        git.Git("yay").clone("https://aur.archlinux.org/yay.git")
+    if os.path.exists("/usr/bin/yay") == False:
+        os.chdir(f"/home/{getpass.getuser()}")
+        git.Git().clone("https://aur.archlinux.org/yay.git")
+        os.chdir("yay")
+        os.system("makepkg -si")
     subprocess.check_call(["yay", "-S", "--noconfirm", "zsh-theme-powerlevel10k-git"])
 
 
