@@ -4,7 +4,7 @@ import git
 import dbus# type: ignore
 import getpass
 import tarfile
-
+import shutil
 # from downloader_cli.download import Download
 # add this downloader-cli = "*" to pip file if you want to renable above^
 
@@ -25,7 +25,12 @@ def replcaer(path: str, user: str):
 
 def dot_files():
     path = os.path.expanduser("~/.dotfiles")
-    git.Git(path).clone("git@github.com:advaithm/Dotfiles.git")
+    if not os.path.exists(path):
+        os.mkdir(path)
+    elif os.listdir(path):
+        shutil.rmtree(path)
+        os.mkdir(path)
+    git.Git(path).clone("https://github.com/advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir("~/.dotfiles")
     os.mkdirs("~/.vim/pack/packager/opt/vim-packager")
@@ -46,6 +51,9 @@ def dot_files():
     subprocess.Popen(stow_command)
     print("finished stow")
     print("installing p10k")
+    if not os.path.exists("/usr/bin/yay"):
+        os.mkdir("yay")
+        git.Git("yay").clone("https://aur.archlinux.org/yay.git")
     subprocess.check_call(["yay", "-S", "--noconfirm", "zsh-theme-powerlevel10k-git"])
 
 
