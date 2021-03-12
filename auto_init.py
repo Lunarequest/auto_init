@@ -32,7 +32,7 @@ def dot_files():
         os.mkdir(path)
     git.Git(path).clone("https://github.com/advaithm/Dotfiles.git")
     print("stowing files")
-    os.chdir("~/.dotfiles")
+    os.chdir(path)
     os.mkdirs("~/.vim/pack/packager/opt/vim-packager")
     git.Git("~/.vim/pack/packager/opt/vim-packager").clone(
         "https://github.com/kristijanhusak/vim-packager"
