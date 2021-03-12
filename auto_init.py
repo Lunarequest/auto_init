@@ -1,6 +1,6 @@
 import os
 import subprocess
-import git# type: ignore
+import git
 import dbus# type: ignore
 import getpass
 import tarfile
@@ -28,10 +28,12 @@ def dot_files():
     git.Git(path).clone("git@github.com:advaithm/Dotfiles.git")
     print("stowing files")
     os.chdir("~/.dotfiles")
-    git.git("~/.vim/pack/packager/opt/vim-packager").clone(
+    os.mkdirs("~/.vim/pack/packager/opt/vim-packager")
+    git.Git("~/.vim/pack/packager/opt/vim-packager").clone(
         "https://github.com/kristijanhusak/vim-packager"
     )
-    git.git("~/.config/nvim/pack/packager/opt/vim-packager").clone(
+    os.mkdir("~/.config/nvim/pack/packager/opt/vim-packager")
+    git.Git("~/.config/nvim/pack/packager/opt/vim-packager").clone(
         "https://github.com/kristijanhusak/vim-packager"
     )
     dirs = os.listdir()
