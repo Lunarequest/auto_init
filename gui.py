@@ -33,19 +33,19 @@ class Main(MDApp):
         screen.add_widget(auto_btn)
         return screen
 
-    def auto_init(self, y:any):
+    def auto_init(self, y):
         staging_dir = os.getcwd()
         dot_files()
         kde_theme(staging_dir)
         wallpaper()
 
-    def themer(self, path:str, y:any):
+    def themer(self, path:str, y):
         kde_theme(path)
 
-    def set_wallpaper(self, y:any):
+    def set_wallpaper(self, y):
         wallpaper()
 
-    def dotter_files(self, y:any):
+    def dotter_files(self, y):
         dot_files()
 
 
