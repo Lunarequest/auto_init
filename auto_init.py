@@ -25,7 +25,7 @@ def replcaer(path: str, user: str):
 def dot_files():
     path = os.path.expanduser("~/.dotfiles")
     print("cloning dotfiles")
-    Repo.clone_from("git clone https://github.com/advaithm/Dotfiles.git", path)
+    Repo.clone_from("git clone https://github.com/Lunstareque/Dotfiles.git", path)
     print("Done clone")
     print("-" * 35)
     print("Installing vim-packager")
@@ -33,10 +33,6 @@ def dot_files():
     Repo.clone_from(
         "https://github.com/kristijanhusak/vim-packager",
         os.path.expanduser("~/.vim/pack/packager/opt/vim-packager"),
-    )
-    Repo.clone_from(
-        "https://github.com/kristijanhusak/vim-packager",
-        os.path.expanduser("~/.config/nvim/pack/packager/opt/vim-packager"),
     )
     print("Installed vim-packager")
     print("-" * 35)
@@ -52,28 +48,27 @@ def dot_files():
     subprocess.Popen(stow_command.split())
     print("finished installing dotfiles")
     print("-" * 35)
-    print("installing zshrc deps")
-    subprocess.check_call(
-        [
-            "pacman",
-            "-S",
-            "--noconfirm",
-            "zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting",
-        ]
+    print("installing zshrc deps") 
+    subprocess.check_call(["sh", "-c", "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"])
+    Repo.clone_from(
+        "https://github.com/zsh-users/zsh-autosuggestions",
+        os.path.expanduser("~/.oh-my-zsh/custom/plugins/zsh-autosuggestions")
     )
-    if os.path.exists("/usr/bin/yay") == False:
-        os.chdir(f"/home/{getpass.getuser()}")
-        git.Git().clone("https://aur.archlinux.org/yay.git")
-        os.chdir("yay")
-        os.system("makepkg -si")
-    os.system(
-        """sh -c '$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'"""
+    Repo.clone_from(
+        "https://github.com/zsh-users/zsh-history-substring-search",
+        os.path.expanduser("~/.oh-my-zsh/custom/plugins/zsh-history-substring-search")
     )
-    subprocess.check_call(["yay", "-S", "--noconfirm", "zsh-theme-powerlevel10k-git"])
-    print(
-        "done installing deps. the prompt to configure power level 10k will start in 5 seconds"
+    Repo.clone_from(
+        "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+        os.path.expanduser("~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting")
+    )
+    Repo.clone_from(
+        "https://github.com/romkatv/powerlevel10k.git",
+        os.path.expanduser("~/.oh-my-zsh/custom/themes/powerlevel10k")
     )
     print("-" * 35)
+    subprocess.check_call(["sh", "-c","curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"])
+    subprocess.check_call(["cargo","install","vivid"])
     time.sleep(5)
     subprocess.check_call(["p10k", "configure"])
     shutil.rmtree(f"/home/{getpass.getuser()}/.zshrc")
